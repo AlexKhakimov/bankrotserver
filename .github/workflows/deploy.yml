@@ -45,5 +45,5 @@ jobs:
             sudo npm install -g pm2
             export PATH="$PATH:/usr/bin/pm2"  # или /usr/local/bin
           fi
-          pm2 restart ecosystem.config.js
+          pm2 restart ecosystem.config.cjs
           EOF
