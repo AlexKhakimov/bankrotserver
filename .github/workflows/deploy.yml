@@ -39,7 +39,7 @@ jobs:
           # Переходим в директорию проекта
           cd bankrotserver
           git pull origin master
-          npx npm install --production
+          /root/bin/npm install --production
           # Установка PM2 (если нет)
           if ! command -v pm2 &> /dev/null; then
           sudo npm install -g pm2
