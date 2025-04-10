@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: "express-app",
+      name: "server",
       script: "index.ts", // Указываем .ts файл
       interpreter: "ts-node",
       instances: "max",
