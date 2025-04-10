@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   apps: [
     {
       name: "express-app",
@@ -8,7 +8,7 @@ module.exports = {
       watch: false,
       env: {
         NODE_ENV: "production",
-        PORT: 3000,
+        PORT: 5000,
       },
     },
   ],
