@@ -47,7 +47,7 @@ app.post("/api/send-phone", async (req, res) => {
   const { name, phone } = req.body;
 
   if (!name || !phone) {
-    return res.status(400).json({ error: "Name and phone required" });
+    return res.status(400).json({ error: "Name 1and phone required" });
   }
 
   try {
