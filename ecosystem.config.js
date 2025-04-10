@@ -1,11 +1,14 @@
 module.exports = {
   apps: [
     {
-      name: "ts-express",
-      script: "dist/index.js",
-      watch: true,
+      name: "express-app",
+      script: "server.js",
+      instances: "max",
+      autorestart: true,
+      watch: false,
       env: {
         NODE_ENV: "production",
+        PORT: 3000,
       },
     },
   ],
