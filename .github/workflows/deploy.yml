@@ -42,6 +42,7 @@ jobs:
           git pull origin master
           npm install --production
           sudo npm install -g ts-node typescript tsconfig-paths
+          sudo npm i --save-dev @types/express
           if ! command -v pm2 &> /dev/null; then
             sudo npm install -g pm2
             export PATH="$PATH:/usr/bin/pm2"  # или /usr/local/bin
