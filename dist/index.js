@@ -7,13 +7,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 // Middleware
-app.use(
-  cors({
-    origin: "https://finekspert.pro", // или массив ['http://site1.com', 'http://site2.com']
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+app.use(cors());
 app.use(express.json());
 // Подключение к PostgreSQL
 const pool = new Pool({
