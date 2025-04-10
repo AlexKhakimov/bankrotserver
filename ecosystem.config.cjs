@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: "server",
-      script: "index.ts", // Указываем .ts файл
+      script: "./index.ts", // Указываем .ts файл
       interpreter: "ts-node",
       instances: "max",
       autorestart: true,
