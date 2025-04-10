@@ -28,24 +28,22 @@ jobs:
         run: |
           sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no \
           ${{ secrets.SSH_USERNAME }}@${{ secrets.SERVER_IP }} << 'EOF'
-          # Установка Node.js (если его нет)
+
           if ! command -v node &> /dev/null; then
-          curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-          sudo apt-get install -y nodejs
+            curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+            sudo apt-get install -y nodejs
+            echo "Node.js установлен: $(node -v)"
           fi
-          # Проверяем Node.js и npm
-          echo "Node.js: $(node -v)"
-          echo "npm: $(npm -v)"
-          # Переходим в директорию проекта
+          if ! command -v npm &> /dev/null; then
+            sudo apt-get install -y npm
+            echo "npm установлен: $(npm -v)"
+          fi   
           cd bankrotserver
           git pull origin master
-          /root/bin/npm install --production
-          # Установка PM2 (если нет)
+          npm install --production
           if ! command -v pm2 &> /dev/null; then
-          sudo npm install -g pm2
-          # Обновляем PATH (если нужно)
-          export PATH="$PATH:/usr/local/bin"
+            sudo npm install -g pm2
+            export PATH="$PATH:/usr/bin/pm2"  # или /usr/local/bin
           fi
-          # Перезапуск приложения
           pm2 restart ecosystem.config.js
           EOF
