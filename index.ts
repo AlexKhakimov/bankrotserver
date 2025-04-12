@@ -37,7 +37,7 @@ async function initDB() {
     client.release();
     console.log("Database initialized");
   } catch (err) {
-    console.error("Database init error:", err);
+    console.error("Database init error :", err);
     process.exit(1);
   }
 }

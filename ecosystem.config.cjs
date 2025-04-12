@@ -3,7 +3,8 @@ module.exports = {
     {
       name: "server",
       script: "./index.ts", // Указываем .ts файл
-      interpreter: "ts-node",
+      interpreter: "/usr/local/bin/ts-node",
+      //interpreter: "C:\\Users\\Алексей\\AppData\\Roaming\\npm\\ts-node.cmd",
       instances: "max",
       autorestart: true,
       watch: false,
