@@ -1,0 +1,51 @@
+name: Deploy Express.js to Ubuntu (Password Auth)
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16" # Укажите нужную версию Node.js\
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass
+
+      - name: Deploy via SSH Password
+        env:
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+        run: |
+          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no \
+          ${{ secrets.SSH_USERNAME }}@${{ secrets.SERVER_IP }} << 'EOF'
+
+          if ! command -v node &> /dev/null; then
+            curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+            sudo apt-get install -y nodejs
+            echo "Node.js установлен: $(node -v)"
+          fi
+          if ! command -v npm &> /dev/null; then
+            sudo apt-get install -y npm
+            echo "npm установлен: $(npm -v)"
+          fi   
+          cd bankrotserver
+          git pull origin master
+          npm install --production
+          sudo npm install -g ts-node typescript tsconfig-paths
+          npm install --save-dev @types/express @types/node
+          if ! command -v pm2 &> /dev/null; then
+            sudo npm install -g pm2
+            export PATH="$PATH:/usr/bin/pm2"  # или /usr/local/bin
+          fi
+          pm2 restart ecosystem.config.cjs
+          EOF
