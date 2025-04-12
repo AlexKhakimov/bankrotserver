@@ -29,7 +29,7 @@ jobs:
           npm install
           npm install tsconfig-paths --save-dev
           npm install -g tsconfig-paths
-           # Дополнительно: если нужно глобально установить ts-node
+
       - name: Install global packages
         run: |
           npm install -g ts-node typescript
