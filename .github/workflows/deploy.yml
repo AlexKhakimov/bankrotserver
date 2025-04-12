@@ -30,10 +30,6 @@ jobs:
           npm install tsconfig-paths --save-dev
           npm install -g tsconfig-paths
 
-      - name: Install global packages
-        run: |
-          npm install -g ts-node typescript
-
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v0.1.10
         with:
