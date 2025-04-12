@@ -8,8 +8,10 @@ module.exports = {
       instances: "max",
       autorestart: true,
       watch: false,
+      port: 5000,
       env: {
         NODE_ENV: "production",
+        TS_NODE_PROJECT: "./tsconfig.json",
         PORT: 5000,
       },
       interpreter_args: "-r tsconfig-paths/register",
