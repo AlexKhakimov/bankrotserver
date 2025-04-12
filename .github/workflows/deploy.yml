@@ -34,6 +34,10 @@ jobs:
       - name: Install PM2 globally
         run: npm install -g pm2
 
+      - name: Install tsconfig-paths
+        run: |
+          npm install tsconfig-paths --save-dev
+
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v0.1.10
         with:
