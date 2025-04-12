@@ -43,7 +43,7 @@ jobs:
           script: |
             cd bankrotserver
             git pull origin master
-            pm2 delete my-server || true
+            pm2 describe my-server > /dev/null 2>&1 && pm2 delete my-server || true
             pm2 start dist/index.js --name my-server
             pm2 save
             pm2 startup
