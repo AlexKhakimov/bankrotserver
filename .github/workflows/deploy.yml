@@ -24,6 +24,16 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
 
+      - name: Install dependencies
+        run: |
+          npm install
+          npm install tsconfig-paths --save-dev
+          npm install -g tsconfig-paths
+           # Дополнительно: если нужно глобально установить ts-node
+      - name: Install global packages
+        run: |
+          npm install -g ts-node typescript
+
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v0.1.10
         with:

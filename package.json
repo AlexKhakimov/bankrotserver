@@ -1,12 +1,13 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "type": "module","scripts": {
-  "dev": "ts-node src/index.ts",
-  "build": "tsc",
-  "start": "node dist/index.js",
-  "prod": "pm2 start npm --name 'ts-server' -- run start"
-},
+  "type": "module",
+  "scripts": {
+    "dev": "ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "prod": "pm2 start npm --name 'ts-server' -- run start"
+  },
   "dependencies": {
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
