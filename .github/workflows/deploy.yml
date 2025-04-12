@@ -27,8 +27,12 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
-          npm install tsconfig-paths --save-dev
-          npm install -g tsconfig-paths
+          npm install -g typescript
+      - name: Build project
+        run: npm run build
+
+      - name: Install PM2 globally
+        run: npm install -g pm2
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v0.1.10
@@ -39,5 +43,6 @@ jobs:
           script: |
             cd bankrotserver
             git pull origin master
-            npm install --production
-            pm2 restart ./dist/index.js
+            pm2 delete all || true
+            pm2 start ecosystem.config.cjs
+            pm2 save

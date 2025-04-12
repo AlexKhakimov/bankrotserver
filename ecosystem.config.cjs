@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: "server",
-      script: "./index.ts", // Указываем .ts файл
+      script: "./dist/index.js", // Указываем .ts файл
       interpreter: "/usr/local/bin/ts-node",
       interpreter_args: "-r ts-node/register tsconfig-paths/register", // Добавьте этот параметр
       instances: "max",
