@@ -1,0 +1,55 @@
+name: Deploy Express.js to Ubuntu
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: npm install
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Полная история коммитов
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+
+      - name: Install dependencies
+        run: |
+          npm install
+          npm install -g typescript
+
+      - name: Install PM2 globally
+        run: npm install -g pm2
+
+      - name: Install tsconfig-paths
+        run: |
+          npm install tsconfig-paths --save-dev
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd bankrotserver            
+            pm2 describe my-server > /dev/null 2>&1 && pm2 delete my-server || true
+            pm2 start dist/index.js --name my-server 
+            pm2 save
+            pm2 startup
