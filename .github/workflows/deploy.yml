@@ -18,8 +18,8 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "."
-          target: "~/bankrotserver/"
+          source: "/*"
+          target: "~/bankrotserver"
           strip_components: 1
 
       - name: Deploy on server
