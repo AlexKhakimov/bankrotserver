@@ -12,7 +12,7 @@ const port = process.env.PORT || 5000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-//master
+//master 2
 // Подключение к PostgreSQL
 const pool = new Pool({
   host: process.env.DB_HOST,
